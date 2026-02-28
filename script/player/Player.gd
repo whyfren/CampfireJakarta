@@ -14,9 +14,15 @@ export var jump_force = -450
 export var swim_speed = 150
 export var swim_fast_multiplier = 1.7
 
+# oxigen
+var oxygen := 100.0
+var oxygen_drain_rate := 10.0
+
+# movement veriable
 var velocity = Vector2.ZERO
 var is_in_water = false
 var facing_right = true
+var is_running = false
 
 # ==============================
 # INVENTORY
@@ -31,8 +37,21 @@ func _physics_process(delta):
 
 	if is_in_water:
 		swim_movement()
+		# drain oksigen
+		if is_running:
+			oxygen -= (oxygen_drain_rate * 2) * delta
+		else:
+			oxygen -= oxygen_drain_rate * delta
+		print("oxygen : ", oxygen)
+		# oksigen habis = mati
+		if oxygen <= 0:
+			oxygen = 0
+			GameManager.player_died()
 	else:
 		normal_movement(delta)
+		# regen oksigen
+		print("oxygen : ", oxygen)
+		oxygen = min(oxygen + 20 * delta, 100)
 
 	velocity = move_and_slide(velocity, Vector2.UP)
 	handle_animation()
@@ -57,6 +76,9 @@ func normal_movement(delta):
 	# RUN
 	if Input.is_action_pressed("lari") and direction != 0:
 		current_speed *= run_multiplier
+		var is_running = true
+	else:
+		var is_running = false
 
 	velocity.x = direction * current_speed
 
@@ -90,6 +112,9 @@ func swim_movement():
 	# SWIM FASTER (lari di air)
 	if Input.is_action_pressed("lari") and (x_dir != 0 or y_dir != 0):
 		current_speed *= swim_fast_multiplier
+		var is_running = true
+	else:
+		var is_running = false
 
 	velocity.x = x_dir * current_speed
 	velocity.y = y_dir * current_speed
