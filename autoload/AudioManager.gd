@@ -2,6 +2,7 @@ extends Node
 
 # ── PRELOAD SEMUA AUDIO DI SINI ────────────────────────────
 const MUSIC = {
+	"main_music": preload("res://assets/Music/GameMusicCool.ogg")
 }
 
 const SFX = {
@@ -38,6 +39,7 @@ func play_sfx(key: String):
 		push_warning("AudioManager: sfx '%s' tidak ditemukan!" % key)
 		return
 	sfx_player.stream = SFX[key]
+	sfx_player.stream.loop = false  # ← tambah ini
 	sfx_player.volume_db = linear2db(sfx_volume)
 	sfx_player.play()
 

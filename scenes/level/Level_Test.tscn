@@ -14,6 +14,7 @@ script/source = "extends Node2D
 func _ready():
 	# manggil fungsi biar player spawn
 	GameManager.player_spawn(self)
+	AudioManager.play_music(\"main_music\")
 "
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
@@ -58,10 +59,10 @@ position = Vector2( -1, -106 )
 position = Vector2( 103, -41 )
 
 [node name="Area2D2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -155, -32 )
+position = Vector2( -222, -66 )
 
 [node name="Area2D3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 196, -51 )
+position = Vector2( 284, -86 )
 
 [node name="air" parent="." instance=ExtResource( 1 )]
 position = Vector2( 137, 108 )
@@ -69,13 +70,13 @@ position = Vector2( 137, 108 )
 [node name="coin" type="Node" parent="."]
 
 [node name="Coin" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 256, 318 )
+position = Vector2( 204, 308 )
 
 [node name="Coin2" parent="coin" instance=ExtResource( 4 )]
 position = Vector2( 542, 422 )
 
 [node name="Coin3" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 714, 264 )
+position = Vector2( 792, 360 )
 
 [node name="Coin7" parent="coin" instance=ExtResource( 4 )]
 position = Vector2( 425, 742 )
