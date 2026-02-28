@@ -1,34 +1,45 @@
 extends KinematicBody2D
 
-# ===== NORMAL MOVEMENT SETTINGS =====
-export var speed = 400
+# ==============================
+# NORMAL MOVEMENT SETTINGS
+# ==============================
+export var speed = 200
+export var run_multiplier = 1.8
 export var gravity = 1000
 export var jump_force = -450
 
-# ===== SWIMMING SETTINGS =====
-export var swim_speed = 200
-export var swim_gravity = 200
+# ==============================
+# SWIMMING SETTINGS
+# ==============================
+export var swim_speed = 150
+export var swim_fast_multiplier = 1.7
 
 var velocity = Vector2.ZERO
-var coin_count = 0
 var is_in_water = false
 var facing_right = true
 
+# ==============================
+# INVENTORY
+# ==============================
+var inventory = []
 
+
+# ==============================
+# PHYSICS PROCESS
+# ==============================
 func _physics_process(delta):
 
 	if is_in_water:
-		swim_movement(delta)
+		swim_movement()
 	else:
 		normal_movement(delta)
 
 	velocity = move_and_slide(velocity, Vector2.UP)
-
 	handle_animation()
 
 
 # ==============================
-# NORMAL MOVEMENT
+# NORMAL MOVEMENT (WALK & RUN)
 # ==============================
 func normal_movement(delta):
 
@@ -41,11 +52,18 @@ func normal_movement(delta):
 	if Input.is_action_pressed("mundur"):
 		direction -= 1
 
-	velocity.x = direction * speed
+	var current_speed = speed
+
+	# RUN
+	if Input.is_action_pressed("lari") and direction != 0:
+		current_speed *= run_multiplier
+
+	velocity.x = direction * current_speed
 
 	if direction != 0:
 		facing_right = direction > 0
 
+	# JUMP
 	if is_on_floor() and Input.is_action_just_pressed("lompat"):
 		velocity.y = jump_force
 
@@ -53,7 +71,7 @@ func normal_movement(delta):
 # ==============================
 # SWIMMING MOVEMENT
 # ==============================
-func swim_movement(delta):
+func swim_movement():
 
 	var x_dir = 0
 	var y_dir = 0
@@ -67,8 +85,14 @@ func swim_movement(delta):
 	if Input.is_action_pressed("bawah"):
 		y_dir += 1
 
-	velocity.x = x_dir * swim_speed
-	velocity.y = y_dir * swim_speed
+	var current_speed = swim_speed
+
+	# SWIM FASTER (lari di air)
+	if Input.is_action_pressed("lari") and (x_dir != 0 or y_dir != 0):
+		current_speed *= swim_fast_multiplier
+
+	velocity.x = x_dir * current_speed
+	velocity.y = y_dir * current_speed
 
 	if x_dir != 0:
 		facing_right = x_dir > 0
@@ -81,38 +105,54 @@ func handle_animation():
 
 	$AnimatedSprite.flip_h = not facing_right
 
+	# ==========================
+	# SWIMMING MODE
+	# ==========================
 	if is_in_water:
 
-		# ===== TURUN =====
+		# TURUN
 		if velocity.y > 0:
 			if $AnimatedSprite.animation != "bawah":
 				$AnimatedSprite.play("bawah")
+			return
 
-		# ===== BERGERAK HORIZONTAL =====
-		elif velocity.x != 0:
-			if $AnimatedSprite.animation != "swiming":
-				$AnimatedSprite.play("swiming")
+		# BERGERAK
+		if velocity.x != 0 or velocity.y < 0:
 
-		# ===== IDLE / NAIK =====
-		else:
-			if $AnimatedSprite.animation != "swim":
-				$AnimatedSprite.play("swim")
+			# Swim Faster
+			if Input.is_action_pressed("lari"):
+				if $AnimatedSprite.animation != "swim_faster":
+					$AnimatedSprite.play("swim_faster")
+			else:
+				if $AnimatedSprite.animation != "swiming":
+					$AnimatedSprite.play("swiming")
+			return
 
+		# IDLE DI AIR
+		if $AnimatedSprite.animation != "swim":
+			$AnimatedSprite.play("swim")
 		return
 
 
-	# ===== NORMAL MODE =====
+	# ==========================
+	# NORMAL MODE
+	# ==========================
 	if not is_on_floor():
 		if $AnimatedSprite.animation != "jump":
 			$AnimatedSprite.play("jump")
+		return
 
-	elif velocity.x != 0:
-		if $AnimatedSprite.animation != "running":
-			$AnimatedSprite.play("running")
+	if velocity.x != 0:
+		if Input.is_action_pressed("lari"):
+			if $AnimatedSprite.animation != "running":
+				$AnimatedSprite.play("running")
+		else:
+			if $AnimatedSprite.animation != "walking":
+				$AnimatedSprite.play("walking")
+		return
 
-	else:
-		if $AnimatedSprite.animation != "idle":
-			$AnimatedSprite.play("idle")
+	if $AnimatedSprite.animation != "idle":
+		$AnimatedSprite.play("idle")
 
 
 # ==============================
@@ -121,13 +161,14 @@ func handle_animation():
 func enter_water():
 	is_in_water = true
 	velocity = Vector2.ZERO
+
 func exit_water():
 	is_in_water = false
 
 
-
-# COIN SYSTEM
-
-func add_coin():
-	coin_count += 1
-	print("Coin:", coin_count)
+# ==============================
+# INVENTORY SYSTEM
+# ==============================
+func add_item(item_name):
+	inventory.append(item_name)
+	print("Inventory:", inventory)

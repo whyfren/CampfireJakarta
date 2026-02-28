@@ -64,7 +64,7 @@ position = Vector2( -155, -32 )
 position = Vector2( 196, -51 )
 
 [node name="air" parent="." instance=ExtResource( 1 )]
-position = Vector2( 129, 148 )
+position = Vector2( 137, 108 )
 
 [node name="coin" type="Node" parent="."]
 

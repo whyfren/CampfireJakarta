@@ -90,6 +90,10 @@ func capture(player):
 	is_captured = true
 	player.add_item(fish_name)
 	queue_free()
+
+
+func _on_ikan_body_entered(body):
+	pass # Replace with function body.
 "
 
 [sub_resource type="AtlasTexture" id=2]
@@ -133,3 +137,5 @@ frames = SubResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 1 )
 shape = SubResource( 7 )
+
+[connection signal="body_entered" from="." to="." method="_on_ikan_body_entered"]
