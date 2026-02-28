@@ -1,0 +1,21 @@
+# Godot-specific ignores
+.import/
+export.cfg
+export_credentials.cfg
+*.tmp
+*.translation
+
+# Mono-specific ignores (only needed if using Godot Mono/C#)
+.mono/
+data_*/
+mono_crash.*.json
+
+# OS/IDE-specific files
+.DS_Store # macOS
+Thumbs.db # Windows
+ehthumbs.db # Windows
+Desktop.ini # Windows
+*.nfs # Linux
+Session.vim # Vim
+.vscode/ # VS Code
+.idea/ # JetBrains IDEs
