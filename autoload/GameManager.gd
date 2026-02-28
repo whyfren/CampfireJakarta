@@ -5,6 +5,7 @@ extends Node
 var player_scene = preload("res://scenes/player/Player.tscn")
 var player
 var current_spawn : PlayerSpawn
+var current_score: int = 0
 
 # nyimpen parent nya player biar ga salah respawn
 var spawn_parent
@@ -38,3 +39,8 @@ func player_died():
 	print("dead fuction active")
 	print("the spawn parent when die are: ", spawn_parent)
 	player_spawn(spawn_parent)  # reuse the stored parent
+	
+func add_score(amount: int):
+	current_score += amount
+	print("score :", current_score)
+	emit_signal("score_updated", current_score) # Emit signal to update UI
