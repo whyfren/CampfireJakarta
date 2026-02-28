@@ -5,5 +5,6 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.name == "Player":
+		AudioManager.play_sfx("coin")
 		GameManager.add_score(1)
 		queue_free()
