@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/water/water.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icon.png" type="Texture" id=2]
 [ext_resource path="res://scenes/system/Spawn_Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/sprites/coin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/sprites/ikan.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/Boat.png" type="Texture" id=6]
 
@@ -64,40 +63,10 @@ texture = ExtResource( 6 )
 [node name="Spawn_Point" parent="." instance=ExtResource( 3 )]
 position = Vector2( -1, -106 )
 
-[node name="Area2D" parent="." instance=ExtResource( 4 )]
-position = Vector2( 103, -41 )
-
-[node name="Area2D2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -222, -66 )
-
-[node name="Area2D3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 284, -86 )
-
 [node name="air" parent="." instance=ExtResource( 1 )]
 position = Vector2( 137, 108 )
 
 [node name="coin" type="Node" parent="."]
-
-[node name="Coin" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 204, 308 )
-
-[node name="Coin2" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 542, 422 )
-
-[node name="Coin3" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 792, 360 )
-
-[node name="Coin7" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 425, 742 )
-
-[node name="Coin6" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 835, 823 )
-
-[node name="Coin5" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 236, 517 )
-
-[node name="Coin4" parent="coin" instance=ExtResource( 4 )]
-position = Vector2( 1218, 530 )
 
 [node name="hewan" type="Node" parent="."]
 
