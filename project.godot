@@ -35,11 +35,6 @@ GameState="*res://autoload/GameState.gd"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
-[display]
-
-window/stretch/mode="2d"
-window/stretch/aspect="keep"
-
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
@@ -89,5 +84,8 @@ common/physics_interpolation=true
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
 2d/snapping/use_gpu_pixel_snap=true
+quality/filters/anisotropic_filter_level=1
+quality/filters/use_nearest_mipmap_filter=true
 environment/default_environment="res://default_env.tres"
