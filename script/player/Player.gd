@@ -34,6 +34,7 @@ var is_in_water = false
 var facing_right = true
 var is_attacking = false
 var can_attack = true
+var is_dead = false
 
 # ==============================
 # INVENTORY
@@ -52,28 +53,32 @@ func _ready():
 # ==============================
 func _physics_process(delta):
 
+	if is_dead:
+		return
+
 	handle_attack_input()
 
 	if not is_attacking:
 
 		if is_in_water:
 			swim_movement()
-
 			# Kurangi oxygen saat di air
 			oxygen -= oxygen_drain_rate * delta
-
+			GameState.oxygen = oxygen
 			if oxygen <= 0:
 				oxygen = 0
-				GameManager.player_died()
+				die()
 
 		else:
 			normal_movement(delta)
 
 			# Regen oxygen di darat
 			oxygen = min(oxygen + 20 * delta, 100)
+			GameState.oxygen = oxygen
 
-	# Update ke UI
-	GameState.oxygen = oxygen
+	# Update UI kalau kamu pakai GameState
+	if Engine.has_singleton("GameState"):
+		GameState.oxygen = oxygen
 
 	velocity = move_and_slide(velocity, Vector2.UP)
 	handle_animation()
@@ -235,3 +240,28 @@ func add_item(item_name):
 func _on_AttackArea_body_entered(body):
 	if body.has_method("take_damage"):
 		body.take_damage(1)
+
+# ==============================
+# DEATH & RESPAWN
+# ==============================
+func die():
+	if is_dead:
+		return
+
+	is_dead = true
+	velocity = Vector2.ZERO
+	disable_hitbox()
+	set_physics_process(false)
+
+	yield(get_tree().create_timer(1.0), "timeout")
+
+	reset_player()
+
+func reset_player():
+	global_position = Vector2(100,100) # ganti dengan spawn kamu
+	oxygen = 100
+	is_dead = false
+	can_attack = true
+	is_attacking = false
+	velocity = Vector2.ZERO
+	set_physics_process(true)
