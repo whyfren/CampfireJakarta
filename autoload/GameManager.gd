@@ -43,4 +43,5 @@ func player_died():
 func add_score(amount: int):
 	current_score += amount
 	print("score :", current_score)
+	GameState.coins = current_score
 	emit_signal("score_updated", current_score) # Emit signal to update UI

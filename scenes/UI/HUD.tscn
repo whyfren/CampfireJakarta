@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://script/UI/HUD.gd" type="Script" id=1]
+[ext_resource path="res://assets/Font/Minecraft.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -16,6 +23,14 @@ margin_right = 74.0
 margin_bottom = 502.0
 fill_mode = 3
 
+[node name="O" type="Label" parent="Control/TextureProgress"]
+margin_left = 7.0
+margin_top = -50.0
+margin_right = 47.0
+margin_bottom = -34.0
+custom_fonts/font = SubResource( 2 )
+text = "O2"
+
 [node name="OxygenBar" type="ProgressBar" parent="Control"]
 anchor_right = 0.1
 anchor_bottom = 0.097
@@ -24,3 +39,12 @@ margin_top = 16.0
 margin_right = 998.0
 margin_bottom = 49.12
 value = 40.0
+
+[node name="CoinCounter" type="Label" parent="Control"]
+margin_left = 30.0
+margin_top = 59.0
+margin_right = 117.0
+margin_bottom = 75.0
+rect_scale = Vector2( 3, 3 )
+custom_fonts/font = SubResource( 1 )
+text = "Coin"

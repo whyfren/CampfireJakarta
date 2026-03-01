@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Campfire_Jakarta"
-run/main_scene="res://scenes/system/World.tscn"
+run/main_scene="res://scenes/UI/MainMenu.tscn"
 config/icon="res://assets/icon.png"
 
 [autoload]
