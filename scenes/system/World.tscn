@@ -11,7 +11,7 @@
 [node name="World" type="Node2D"]
 
 [node name="Node2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1001, -645 )
+position = Vector2( -1022, -645 )
 scale = Vector2( 3, 3 )
 
 [node name="Level_Test2" parent="." instance=ExtResource( 1 )]
@@ -57,7 +57,7 @@ position = Vector2( 732, 134 )
 position = Vector2( -4918, 593 )
 
 [node name="Level_Test3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 14, 139 )
+position = Vector2( 68, 147 )
 
 [node name="ikan" parent="Level_Test3" instance=ExtResource( 5 )]
 position = Vector2( 1145, 518 )
