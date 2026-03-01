@@ -1,8 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://script/level/Level_Test.gd" type="Script" id=1]
+[ext_resource path="res://scenes/water/water.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icon.png" type="Texture" id=2]
 [ext_resource path="res://scenes/system/Spawn_Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/sprites/coin.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/sprites/ikan.tscn" type="PackedScene" id=5]
+
+[sub_resource type="GDScript" id=3]
+resource_name = "water"
+script/source = "extends Node2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	# manggil fungsi biar player spawn
+	GameManager.player_spawn(self)
+	AudioManager.play_music(\"main_music\")
+"
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
@@ -31,7 +44,8 @@ points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
 0/z_index = 0
 
 [node name="Level_Test" type="Node2D"]
-script = ExtResource( 1 )
+position = Vector2( 474, 252 )
+script = SubResource( 3 )
 
 [node name="TileMap_Terrain" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -40,3 +54,46 @@ tile_data = PoolIntArray( 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 
 
 [node name="Spawn_Point" parent="." instance=ExtResource( 3 )]
 position = Vector2( -1, -106 )
+
+[node name="Area2D" parent="." instance=ExtResource( 4 )]
+position = Vector2( 103, -41 )
+
+[node name="Area2D2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -222, -66 )
+
+[node name="Area2D3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 284, -86 )
+
+[node name="air" parent="." instance=ExtResource( 1 )]
+position = Vector2( 137, 108 )
+
+[node name="coin" type="Node" parent="."]
+
+[node name="Coin" parent="coin" instance=ExtResource( 4 )]
+position = Vector2( 204, 308 )
+
+[node name="Coin2" parent="coin" instance=ExtResource( 4 )]
+position = Vector2( 542, 422 )
+
+[node name="Coin3" parent="coin" instance=ExtResource( 4 )]
+position = Vector2( 792, 360 )
+
+[node name="Coin7" parent="coin" instance=ExtResource( 4 )]
+position = Vector2( 425, 742 )
+
+[node name="Coin6" parent="coin" instance=ExtResource( 4 )]
+position = Vector2( 835, 823 )
+
+[node name="Coin5" parent="coin" instance=ExtResource( 4 )]
+position = Vector2( 236, 517 )
+
+[node name="Coin4" parent="coin" instance=ExtResource( 4 )]
+position = Vector2( 1218, 530 )
+
+[node name="hewan" type="Node" parent="."]
+
+[node name="ikan" parent="hewan" instance=ExtResource( 5 )]
+position = Vector2( 180, 385 )
+
+[node name="ikan2" parent="hewan" instance=ExtResource( 5 )]
+position = Vector2( -208, 531 )

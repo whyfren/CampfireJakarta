@@ -21,12 +21,19 @@ _global_script_class_icons={
 [application]
 
 config/name="Campfire_Jakarta"
-run/main_scene="res://scenes/level/Level_Test.tscn"
+run/main_scene="res://scenes/UI/MainMenu.tscn"
 config/icon="res://assets/icon.png"
 
 [autoload]
 
 GameManager="*res://autoload/GameManager.gd"
+AudioManager="*res://autoload/AudioManager.tscn"
+GameState="*res://autoload/GameState.gd"
+
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [display]
 
@@ -52,6 +59,22 @@ mundur={
 lompat={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+bawah={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+lari={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777237,"unicode":0,"echo":false,"script":null)
+ ]
+}
+attack={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":74,"unicode":0,"echo":false,"script":null)
  ]
 }
 
