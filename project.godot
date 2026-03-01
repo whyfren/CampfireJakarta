@@ -21,13 +21,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Campfire_Jakarta"
-run/main_scene="res://scenes/level/Level_Test.tscn"
+run/main_scene="res://scenes/system/World.tscn"
 config/icon="res://assets/icon.png"
 
 [autoload]
 
 GameManager="*res://autoload/GameManager.gd"
 AudioManager="*res://autoload/AudioManager.tscn"
+GameState="*res://autoload/GameState.gd"
 
 [display]
 

@@ -43,6 +43,7 @@ func _physics_process(delta):
 		else:
 			oxygen -= oxygen_drain_rate * delta
 		print("oxygen : ", oxygen)
+		GameState.oxygen = oxygen
 		# oksigen habis = mati
 		if oxygen <= 0:
 			oxygen = 0
@@ -51,6 +52,7 @@ func _physics_process(delta):
 		normal_movement(delta)
 		# regen oksigen
 		print("oxygen : ", oxygen)
+		GameState.oxygen = oxygen
 		oxygen = min(oxygen + 20 * delta, 100)
 
 	velocity = move_and_slide(velocity, Vector2.UP)
