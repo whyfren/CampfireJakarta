@@ -20,6 +20,15 @@ export var swim_fast_multiplier = 1.7
 export var attack_duration = 0.2
 export var attack_cooldown = 0.4
 
+# ==============================
+# OXYGEN SYSTEM
+# ==============================
+var oxygen = 100.0
+var oxygen_drain_rate = 10.0
+
+# ==============================
+# STATE
+# ==============================
 var velocity = Vector2.ZERO
 var is_in_water = false
 var facing_right = true
@@ -31,6 +40,12 @@ var can_attack = true
 # ==============================
 var inventory = []
 
+# ==============================
+# READY
+# ==============================
+func _ready():
+	disable_hitbox()
+	$AttackArea.connect("body_entered", self, "_on_AttackArea_body_entered")
 
 # ==============================
 # PHYSICS PROCESS
@@ -40,30 +55,28 @@ func _physics_process(delta):
 	handle_attack_input()
 
 	if not is_attacking:
+
 		if is_in_water:
 			swim_movement()
-		else:
-<<<<<<< Updated upstream
+
+			# Kurangi oxygen saat di air
 			oxygen -= oxygen_drain_rate * delta
-		print("oxygen : ", oxygen)
-		GameState.oxygen = oxygen
-		# oksigen habis = mati
-		if oxygen <= 0:
-			oxygen = 0
-			GameManager.player_died()
-	else:
-		normal_movement(delta)
-		# regen oksigen
-		print("oxygen : ", oxygen)
-		GameState.oxygen = oxygen
-		oxygen = min(oxygen + 20 * delta, 100)
-=======
+
+			if oxygen <= 0:
+				oxygen = 0
+				GameManager.player_died()
+
+		else:
 			normal_movement(delta)
->>>>>>> Stashed changes
+
+			# Regen oxygen di darat
+			oxygen = min(oxygen + 20 * delta, 100)
+
+	# Update ke UI
+	GameState.oxygen = oxygen
 
 	velocity = move_and_slide(velocity, Vector2.UP)
 	handle_animation()
-
 
 # ==============================
 # NORMAL MOVEMENT
@@ -91,7 +104,6 @@ func normal_movement(delta):
 
 	if is_on_floor() and Input.is_action_just_pressed("lompat"):
 		velocity.y = jump_force
-
 
 # ==============================
 # SWIMMING MOVEMENT
@@ -121,14 +133,12 @@ func swim_movement():
 	if x_dir != 0:
 		facing_right = x_dir > 0
 
-
 # ==============================
-# ATTACK SYSTEM (GODOT 3 STYLE)
+# ATTACK SYSTEM
 # ==============================
 func handle_attack_input():
 	if Input.is_action_just_pressed("attack") and can_attack:
 		start_attack()
-
 
 func start_attack():
 	is_attacking = true
@@ -139,23 +149,20 @@ func start_attack():
 	enable_hitbox()
 
 	yield(get_tree().create_timer(attack_duration), "timeout")
-	disable_hitbox()
 
+	disable_hitbox()
 	is_attacking = false
 
 	yield(get_tree().create_timer(attack_cooldown), "timeout")
 	can_attack = true
 
-
 func enable_hitbox():
 	$AttackArea.monitoring = true
 	$AttackArea/CollisionShape2D.disabled = false
 
-
 func disable_hitbox():
 	$AttackArea.monitoring = false
 	$AttackArea/CollisionShape2D.disabled = true
-
 
 # ==============================
 # ANIMATION SYSTEM
@@ -170,7 +177,7 @@ func handle_animation():
 	else:
 		$AttackArea.position.x = -abs($AttackArea.position.x)
 
-	# ATTACK PRIORITY
+	# PRIORITAS ATTACK
 	if is_attacking:
 		return
 
@@ -178,43 +185,32 @@ func handle_animation():
 	if is_in_water:
 
 		if velocity.y > 0:
-			if $AnimatedSprite.animation != "bawah":
-				$AnimatedSprite.play("bawah")
+			$AnimatedSprite.play("bawah")
 			return
 
 		if velocity.x != 0 or velocity.y < 0:
-
 			if Input.is_action_pressed("lari"):
-				if $AnimatedSprite.animation != "swim_faster":
-					$AnimatedSprite.play("swim_faster")
+				$AnimatedSprite.play("swim_faster")
 			else:
-				if $AnimatedSprite.animation != "swiming":
-					$AnimatedSprite.play("swiming")
+				$AnimatedSprite.play("swiming")
 			return
 
-		if $AnimatedSprite.animation != "swim":
-			$AnimatedSprite.play("swim")
+		$AnimatedSprite.play("swim")
 		return
-
 
 	# ===== LAND MODE =====
 	if not is_on_floor():
-		if $AnimatedSprite.animation != "jump":
-			$AnimatedSprite.play("jump")
+		$AnimatedSprite.play("jump")
 		return
 
 	if velocity.x != 0:
 		if Input.is_action_pressed("lari"):
-			if $AnimatedSprite.animation != "running":
-				$AnimatedSprite.play("running")
+			$AnimatedSprite.play("running")
 		else:
-			if $AnimatedSprite.animation != "walking":
-				$AnimatedSprite.play("walking")
+			$AnimatedSprite.play("walking")
 		return
 
-	if $AnimatedSprite.animation != "idle":
-		$AnimatedSprite.play("idle")
-
+	$AnimatedSprite.play("idle")
 
 # ==============================
 # WATER SIGNALS
@@ -226,14 +222,12 @@ func enter_water():
 func exit_water():
 	is_in_water = false
 
-
 # ==============================
 # INVENTORY
 # ==============================
 func add_item(item_name):
 	inventory.append(item_name)
 	print("Inventory:", inventory)
-
 
 # ==============================
 # ATTACK HIT DETECTION
