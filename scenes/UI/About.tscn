@@ -10,7 +10,7 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 1 )
 
-[node name="MainMenu" type="CanvasLayer"]
+[node name="About" type="CanvasLayer"]
 
 [node name="Treasure-Chest-500X333" type="Sprite" parent="."]
 position = Vector2( 512.5, 298.75 )

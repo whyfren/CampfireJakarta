@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Font/Minecraft.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://MainMenu.gd" type="Script" id=2]
-[ext_resource path="res://scenes/UI/ControlPauseMenu.gd" type="Script" id=3]
+[ext_resource path="res://scenes/UI/ControlWIN.gd" type="Script" id=3]
+[ext_resource path="res://assets/Treasure-Chest-500x333.jpeg" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -10,9 +11,14 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 1 )
 
-[node name="PauseMenu" type="CanvasLayer"]
+[node name="WinMenu" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 2 )
+
+[node name="Treasure-Chest-500X333" type="Sprite" parent="."]
+position = Vector2( 512, 308 )
+scale = Vector2( 2.043, 2.10135 )
+texture = ExtResource( 4 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
@@ -30,27 +36,20 @@ rect_scale = Vector2( 3, 3 )
 margin_right = 133.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 1 )
-text = "GAME PAUSED"
+text = "YOURE WIN"
 align = 1
 valign = 1
 
-[node name="PlayButton" type="Button" parent="Control/VBoxContainer"]
+[node name="MenuButton" type="Button" parent="Control/VBoxContainer"]
 margin_top = 20.0
 margin_right = 133.0
 margin_bottom = 42.0
 custom_fonts/font = SubResource( 2 )
-text = "Play"
-
-[node name="MenuButton" type="Button" parent="Control/VBoxContainer"]
-margin_top = 46.0
-margin_right = 133.0
-margin_bottom = 68.0
-custom_fonts/font = SubResource( 2 )
 text = "Menu"
 
 [node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
-margin_top = 72.0
+margin_top = 46.0
 margin_right = 133.0
-margin_bottom = 94.0
+margin_bottom = 68.0
 custom_fonts/font = SubResource( 2 )
 text = "Quit"
