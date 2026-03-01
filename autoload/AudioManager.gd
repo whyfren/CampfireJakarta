@@ -7,6 +7,7 @@ const MUSIC = {
 
 const SFX = {
 	"coin":       preload("res://assets/SFX/Coin.mp3"),
+	"win":         preload("res://assets/SFX/win.mp3")
 }
 # ────────────────────────────────────────────────────────────
 

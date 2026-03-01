@@ -36,7 +36,7 @@ rect_scale = Vector2( 3, 3 )
 margin_right = 133.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 1 )
-text = "YOURE WIN"
+text = "YOU WIN"
 align = 1
 valign = 1
 

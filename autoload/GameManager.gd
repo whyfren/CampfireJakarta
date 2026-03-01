@@ -46,6 +46,7 @@ func add_score(amount: int):
 	
 	# Cek win condition
 	if current_score >= 10:
+		AudioManager.play_sfx("win")
 		_trigger_win()
 
 func _trigger_win():

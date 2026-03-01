@@ -24,7 +24,7 @@ export var attack_cooldown = 0.4
 # OXYGEN SYSTEM
 # ==============================
 var oxygen = 100.0
-var oxygen_drain_rate = 10.0
+var oxygen_drain_rate = 8.00
 
 # ==============================
 # STATE
