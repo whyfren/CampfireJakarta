@@ -24,7 +24,7 @@ export var attack_cooldown = 0.4
 # OXYGEN SYSTEM
 # ==============================
 var oxygen = 100.0
-var oxygen_drain_rate = 10.0
+var oxygen_drain_rate = 8.00
 
 # ==============================
 # STATE
@@ -44,9 +44,7 @@ var inventory = []
 # ==============================
 # READY
 # ==============================
-func _ready():
-	disable_hitbox()
-	$AttackArea.connect("body_entered", self, "_on_AttackArea_body_entered")
+
 
 # ==============================
 # PHYSICS PROCESS
@@ -56,7 +54,7 @@ func _physics_process(delta):
 	if is_dead:
 		return
 
-	handle_attack_input()
+	
 
 	if not is_attacking:
 
@@ -141,33 +139,9 @@ func swim_movement():
 # ==============================
 # ATTACK SYSTEM
 # ==============================
-func handle_attack_input():
-	if Input.is_action_just_pressed("attack") and can_attack:
-		start_attack()
 
-func start_attack():
-	is_attacking = true
-	can_attack = false
-	velocity = Vector2.ZERO
 
-	$AnimatedSprite.play("attack")
-	enable_hitbox()
 
-	yield(get_tree().create_timer(attack_duration), "timeout")
-
-	disable_hitbox()
-	is_attacking = false
-
-	yield(get_tree().create_timer(attack_cooldown), "timeout")
-	can_attack = true
-
-func enable_hitbox():
-	$AttackArea.monitoring = true
-	$AttackArea/CollisionShape2D.disabled = false
-
-func disable_hitbox():
-	$AttackArea.monitoring = false
-	$AttackArea/CollisionShape2D.disabled = true
 
 # ==============================
 # ANIMATION SYSTEM
@@ -176,15 +150,6 @@ func handle_animation():
 
 	$AnimatedSprite.flip_h = not facing_right
 
-	# Geser hitbox sesuai arah
-	if facing_right:
-		$AttackArea.position.x = abs($AttackArea.position.x)
-	else:
-		$AttackArea.position.x = -abs($AttackArea.position.x)
-
-	# PRIORITAS ATTACK
-	if is_attacking:
-		return
 
 	# ===== SWIM MODE =====
 	if is_in_water:
@@ -237,9 +202,6 @@ func add_item(item_name):
 # ==============================
 # ATTACK HIT DETECTION
 # ==============================
-func _on_AttackArea_body_entered(body):
-	if body.has_method("take_damage"):
-		body.take_damage(1)
 
 # ==============================
 # DEATH & RESPAWN
@@ -250,7 +212,7 @@ func die():
 
 	is_dead = true
 	velocity = Vector2.ZERO
-	disable_hitbox()
+	
 	set_physics_process(false)
 
 	yield(get_tree().create_timer(1.0), "timeout")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://assets/1 Woodcutter/Woodcutter_idle.png" type="Texture" id=1]
 [ext_resource path="res://script/player/Player.gd" type="Script" id=2]
@@ -251,9 +251,6 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=43]
-extents = Vector2( 46, 17.25 )
-
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
@@ -271,9 +268,3 @@ animation = "swim faster"
 current = true
 smoothing_enabled = true
 script = ExtResource( 9 )
-
-[node name="AttackArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2( 1, -16 )
-shape = SubResource( 43 )
